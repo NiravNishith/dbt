@@ -19,6 +19,15 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
+snapshots:
+  transient: false
+  Analytics:
+    source_tables:
+      strategy: timestamp
+      updated_at: updated_at
+      target_database: AIRBNB
+      target_schema: RAW
+
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
@@ -35,4 +44,11 @@ models:
   my_new_project:
     # Applies to all files under models/example/
     example:
-      materialized: view
+      +materialized: view
+      dim:
+        +materialized: table
+     
+
+
+
+
